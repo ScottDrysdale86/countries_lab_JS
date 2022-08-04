@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import "./details.css";
 
-const CountryDetails = ({ countries, selectedCountry, saveFavCountry }) => {
-	const findNeighbours = () => {
-		let neighbours = [];
-		for (let country of countries) {
-			if (country.borders) {
-				for (let border of country.borders) {
-					if (border === selectedCountry.cca3) {
-						neighbours.push(country.name.common);
-					}
-				}
-			}
-		}
-		return neighbours;
-	};
-
-	console.log(findNeighbours());
+const CountryDetails = ({ selectedCountry, saveFavCountry, neighbours }) => {
+	// const findNeighbours = () => {
+	// 	let neighbours = [];
+	// 	for (let country of countries) {
+	// 		if (country.borders) {
+	// 			for (let border of country.borders) {
+	// 				if (border === selectedCountry.cca3) {
+	// 					neighbours.push(country.name.common);
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	return neighbours;
+	// };
 
 	return (
 		<div className="country-details">
@@ -28,7 +26,7 @@ const CountryDetails = ({ countries, selectedCountry, saveFavCountry }) => {
 				<li>Continent: {selectedCountry.region}</li>
 				<li>Population: {selectedCountry.population}</li>
 				<li>Capital City: {selectedCountry.capital}</li>
-				<li>Neighbouring Countries: {findNeighbours}</li>
+				<li>Neighbouring Countries: {neighbours}</li>
 			</ul>
 			<button value={selectedCountry} onClick={saveFavCountry}>
 				Add to Fav

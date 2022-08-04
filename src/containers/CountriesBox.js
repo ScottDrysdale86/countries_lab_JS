@@ -7,6 +7,7 @@ const CountriesBox = () => {
 	const [countries, setCountries] = useState([]);
 	const [selectedCountry, setSelectedCountry] = useState(null);
 	const [favCountries, setFavCountries] = useState([]);
+	const [neighbours, setNeighbours] = useState([]);
 
 	useEffect(() => {
 		getCountries();
@@ -41,6 +42,20 @@ const CountriesBox = () => {
 		setFavCountries(newFavs);
 	};
 
+	const findNeighbours = () => {
+		let copyNeighbours = [...neighbours];
+		for (let country of countries) {
+			if (country.borders) {
+				for (let border of country.borders) {
+					if (border === selectedCountry.cca3) {
+						copyNeighbours.push(country.name.common);
+					}
+				}
+			}
+		}
+		setNeighbours(copyNeighbours);
+	};
+
 	return (
 		<>
 			<h1>Countries of the World</h1>
@@ -56,6 +71,7 @@ const CountriesBox = () => {
 					countries={countries}
 					selectedCountry={selectedCountry}
 					saveFavCountry={saveFavCountry}
+					neighbours={findNeighbours}
 				/>
 			) : null}
 			<h2>Favourite Countries</h2>
